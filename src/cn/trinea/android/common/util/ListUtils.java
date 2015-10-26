@@ -3,6 +3,8 @@ package cn.trinea.android.common.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.text.TextUtils;
+
 /**
  * List Utils
  * 
@@ -12,6 +14,10 @@ public class ListUtils {
 
     /** default join separator **/
     public static final String DEFAULT_JOIN_SEPARATOR = ",";
+
+    private ListUtils() {
+        throw new AssertionError();
+    }
 
     /**
      * get size of list
@@ -112,7 +118,7 @@ public class ListUtils {
      * @return join list to string. if list is empty, return ""
      */
     public static String join(List<String> list, char separator) {
-        return join(list, new String(new char[] { separator }));
+        return join(list, new String(new char[] {separator}));
     }
 
     /**
@@ -132,21 +138,7 @@ public class ListUtils {
      * @return join list to string with separator. if list is empty, return ""
      */
     public static String join(List<String> list, String separator) {
-        if (isEmpty(list)) {
-            return "";
-        }
-        if (separator == null) {
-            separator = DEFAULT_JOIN_SEPARATOR;
-        }
-
-        StringBuilder joinStr = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            joinStr.append(list.get(i));
-            if (i != list.size() - 1) {
-                joinStr.append(separator);
-            }
-        }
-        return joinStr.toString();
+        return list == null ? "" : TextUtils.join(separator, list);
     }
 
     /**
@@ -215,10 +207,10 @@ public class ListUtils {
      * @param sourceList
      * @param value
      * @return <ul>
-     * <li>if sourceList is null, return false</li>
-     * <li>if value is null, return false</li>
-     * <li>return {@link List#add(Object)}</li>
-     * </ul>
+     *         <li>if sourceList is null, return false</li>
+     *         <li>if value is null, return false</li>
+     *         <li>return {@link List#add(Object)}</li>
+     *         </ul>
      */
     public static <V> boolean addListNotNullValue(List<V> sourceList, V value) {
         return (sourceList != null && value != null) ? sourceList.add(value) : false;

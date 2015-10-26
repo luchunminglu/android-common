@@ -30,7 +30,7 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
     /** data **/
     protected V               data;
 
-    public CacheObject(){
+    public CacheObject() {
         this.enterTime = System.currentTimeMillis();
         this.lastUsedTime = System.currentTimeMillis();
         this.usedCount = 0;
@@ -39,7 +39,7 @@ public class CacheObject<V> implements Serializable, Comparable<CacheObject<V>> 
         this.isForever = false;
     }
 
-    public CacheObject(V data){
+    public CacheObject(V data) {
         this();
         this.data = data;
     }

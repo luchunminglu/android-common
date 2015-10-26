@@ -1,17 +1,20 @@
 ![Trinea](http://farm8.staticflickr.com/7426/9456847893_053161c7a4_o.png)android-common-lib
 -------------
+> 关于我，欢迎关注  
+ 微博：<a title="Android 技术及移动互联网分享" href="http://weibo.com/trinea?s=6cm7D0" target="_blank">Trinea</a>&nbsp;&nbsp;&nbsp;&nbsp;主页：<a title="关注于 Android、Java、性能优化、开源项目" href="http://www.trinea.cn/" target="_blank">trinea.cn</a>&nbsp;&nbsp;&nbsp;&nbsp;邮箱：<a title="欢迎邮件与我交流" href="mailto:trinea.cn@gmail.com" target="_blank">trinea.cn#gmail.com</a>&nbsp;&nbsp;&nbsp;&nbsp;微信：<a title="点击查看二维码" href="http://codekk.com/about" target="_blank">codek2</a>  
+
 **主要包括**：<strong>缓存</strong>(图片缓存、预取缓存、网络缓存)、<strong>公共View</strong>(下拉及底部加载更多ListView、底部加载更多ScrollView、滑动一页Gallery)及<strong>Android常用工具类</strong>(网络、下载、Android资源操作、shell、文件、Json、随机数、Collection等等)。    
 示例源码：[TrineaAndroidDemo](https://github.com/Trinea/AndroidDemo)。  
 使&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用：拉取代码导入IDE，右击你的工程->properties->Android，在library中选择TrineaAndroidCommon。  
 Api Guide：[TrineaAndroidCommon API Guide](http://trinea.github.io/doc/trinea_android_common/index.html)。  
-
-微博：<a title="Android技术及移动互联网分享" href="http://weibo.com/trinea" target="_blank">Trinea</a>&nbsp;&nbsp;&nbsp;&nbsp;主页：<a title="关注与AndroidJava性能优化开源项目" href="http://www.trinea.cn/" target="_blank">trinea.cn</a>&nbsp;&nbsp;&nbsp;&nbsp;邮箱：<a title="欢迎邮件与我交流" href="mailto:trinea.cn@gmail.com" target="_blank">trinea.cn#gmail.com</a>&nbsp;&nbsp;&nbsp;&nbsp;QQ：<a title="欢迎Q我" href="http://wpa.qq.com/msgrd?v=3&amp;uin=717763774&amp;site=qq&amp;menu=yes" target="_blank">717763774</a>  
 
 ####示例APK:  
 <a href="https://play.google.com/store/apps/details?id=cn.trinea.android.demo" target="_blank" title="从Google Play下载"><img src="http://www.android.com/images/brand/get_it_on_play_logo_small.png" title="从Google Play下载"/></a>
     <a href="http://as.baidu.com/a/item?docid=5499464" target="_blank" title="从Baidu手机助手下载"><img src="http://farm3.staticflickr.com/2826/11928623406_b9e8d39bd7_o.png" title="从Baidu手机助手下载"/></a>
     <a href="http://zhushou.360.cn/detail/index/soft_id/994107" target="_blank" title="从360手机助手下载"><img src="http://farm4.staticflickr.com/3775/11983355756_f8548f4c17_o.png" title="从360手机助手下载"/></a>
     <a href="http://app.xiaomi.com/detail/54761" target="_blank" title="从小米应用商店下载"><img src="http://farm8.staticflickr.com/7380/11982503045_b0538df5f5_o.png" title="从小米应用商店下载"/></a>
+    <a href="http://trinea.github.com/apk/trinea-android-demo.apk" target="_blank" title="二维码扫描下载"><img src="https://farm3.staticflickr.com/2930/14017948972_bafb6df1b5_o.png" title="二维码扫描下载"/></a>
+    <a href="http://trinea.github.com/apk/trinea-android-demo.apk" target="_blank" title="点击下载到本地">本地下载</a>  
 ####一. 缓存类
 主要特性：(1).使用简单 (2).轻松获取及预取取新图片 (3).包含二级缓存 (4).可选择多种缓存算法(FIFO、LIFO、LRU、MRU、LFU、MFU等13种)或自定义缓存算法 (5).可方便的保存及初始化恢复数据 (6).省流量性能佳(有且仅有一个线程获取图片) (7).支持http请求header设置及不同类型网络处理(8).可根据系统配置初始化缓存 (9).扩展性强 (10).支持等待队列 (11)包含map的大多数接口。
 #####1. 图片缓存
@@ -35,7 +38,7 @@ Api Guide：[TrineaAndroidCommon API Guide](http://trinea.github.io/doc/trinea_a
 #####4. 预取数据缓存
 使用见：[预取数据缓存](http://www.trinea.cn/android/preloaddatacache/)  
 缓存类关系图如下：其中HttpCache为后续计划的http缓存 
-![ImageSDCardCache](http://farm4.staticflickr.com/3818/9318670513_1576253fd5_o.jpg)  
+![Image Cache](https://farm8.staticflickr.com/7336/13991252450_f1e154012d_o.png)  
 
 ####二. 公用的view
 #####1. 下拉刷新及滚动到底部加载更多的Listview
@@ -83,6 +86,12 @@ Api Guide：[TrineaAndroidCommon API Guide](http://trinea.github.io/doc/trinea_a
 -dontwarn cn.trinea.android.**
 ```
 
+### Download
+Gradle:  
+``` xml
+compile 'cn.trinea.android.common:trinea-android-common:4.2.15'
+```
+
 ## License
 
     Copyright 2013 trinea.cn
@@ -98,8 +107,4 @@ Api Guide：[TrineaAndroidCommon API Guide](http://trinea.github.io/doc/trinea_a
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-    
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Trinea/androidcommon/trend.png)](https://bitdeli.com/free "Bitdeli Badge")  
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/0e64e2f00112f86af822e39ce45bca31 "githalytics.com")](http://githalytics.com/Trinea/AndroidCommon)
 

@@ -21,7 +21,7 @@ public class ImageSDCardCacheDaoImpl implements ImageSDCardCacheDao {
 
     private SqliteUtils sqliteUtils;
 
-    public ImageSDCardCacheDaoImpl(SqliteUtils sqliteUtils){
+    public ImageSDCardCacheDaoImpl(SqliteUtils sqliteUtils) {
         this.sqliteUtils = sqliteUtils;
     }
 
@@ -33,9 +33,9 @@ public class ImageSDCardCacheDaoImpl implements ImageSDCardCacheDao {
 
         StringBuilder selection = new StringBuilder();
         selection.append(DbConstants.IMAGE_SDCARD_CACHE_TABLE_TAG).append("=?");
-        String[] selectionArgs = { tag };
-        Cursor cursor = sqliteUtils.getRDb().query(DbConstants.IMAGE_SDCARD_CACHE_TABLE_TABLE_NAME, null,
-                                                   selection.toString(), selectionArgs, null, null, null);
+        String[] selectionArgs = {tag};
+        Cursor cursor = sqliteUtils.getDb().query(DbConstants.IMAGE_SDCARD_CACHE_TABLE_TABLE_NAME, null,
+                selection.toString(), selectionArgs, null, null, null);
         if (cursor == null) {
             return true;
         }
@@ -64,12 +64,12 @@ public class ImageSDCardCacheDaoImpl implements ImageSDCardCacheDao {
             return false;
         }
 
-        SQLiteDatabase db = sqliteUtils.getWDb();
+        SQLiteDatabase db = sqliteUtils.getDb();
         db.beginTransaction();
         try {
             StringBuilder whereClause = new StringBuilder();
             whereClause.append(DbConstants.IMAGE_SDCARD_CACHE_TABLE_TAG).append("=?");
-            String[] whereArgs = { tag };
+            String[] whereArgs = {tag};
             db.delete(DbConstants.IMAGE_SDCARD_CACHE_TABLE_TABLE_NAME, whereClause.toString(), whereArgs);
 
             String key;

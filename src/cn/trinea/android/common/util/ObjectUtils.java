@@ -7,18 +7,38 @@ package cn.trinea.android.common.util;
  */
 public class ObjectUtils {
 
+    private ObjectUtils() {
+        throw new AssertionError();
+    }
+
     /**
      * compare two object
      * 
      * @param actual
      * @param expected
      * @return <ul>
-     * <li>if both are null, return true</li>
-     * <li>return actual.{@link Object#equals(Object)}</li>
-     * </ul>
+     *         <li>if both are null, return true</li>
+     *         <li>return actual.{@link Object#equals(Object)}</li>
+     *         </ul>
      */
     public static boolean isEquals(Object actual, Object expected) {
         return actual == expected || (actual == null ? expected == null : actual.equals(expected));
+    }
+
+    /**
+     * null Object to empty string
+     * 
+     * <pre>
+     * nullStrToEmpty(null) = &quot;&quot;;
+     * nullStrToEmpty(&quot;&quot;) = &quot;&quot;;
+     * nullStrToEmpty(&quot;aa&quot;) = &quot;aa&quot;;
+     * </pre>
+     * 
+     * @param str
+     * @return
+     */
+    public static String nullStrToEmpty(Object str) {
+        return (str == null ? "" : (str instanceof String ? (String)str : str.toString()));
     }
 
     /**
@@ -97,7 +117,7 @@ public class ObjectUtils {
      * @param v2
      * @return
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public static <V> int compare(V v1, V v2) {
         return v1 == null ? (v2 == null ? 0 : -1) : (v2 == null ? 1 : ((Comparable)v1).compareTo(v2));
     }

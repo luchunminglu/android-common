@@ -12,6 +12,10 @@ import java.util.regex.Pattern;
  */
 public class StringUtils {
 
+    private StringUtils() {
+        throw new AssertionError();
+    }
+
     /**
      * is null or its length is 0 or it is made by space
      * 
@@ -44,7 +48,7 @@ public class StringUtils {
      * @param str
      * @return if string is null or its size is 0, return true, else return false.
      */
-    public static boolean isEmpty(String str) {
+    public static boolean isEmpty(CharSequence str) {
         return (str == null || str.length() == 0);
     }
 
@@ -61,7 +65,23 @@ public class StringUtils {
     }
 
     /**
-     * null string to empty string
+     * get length of CharSequence
+     * 
+     * <pre>
+     * length(null) = 0;
+     * length(\"\") = 0;
+     * length(\"abc\") = 3;
+     * </pre>
+     * 
+     * @param str
+     * @return if str is null or empty, return 0, else return {@link CharSequence#length()}.
+     */
+    public static int length(CharSequence str) {
+        return str == null ? 0 : str.length();
+    }
+
+    /**
+     * null Object to empty string
      * 
      * <pre>
      * nullStrToEmpty(null) = &quot;&quot;;
@@ -72,8 +92,8 @@ public class StringUtils {
      * @param str
      * @return
      */
-    public static String nullStrToEmpty(String str) {
-        return (str == null ? "" : str);
+    public static String nullStrToEmpty(Object str) {
+        return (str == null ? "" : (str instanceof String ? (String)str : str.toString()));
     }
 
     /**
@@ -97,8 +117,8 @@ public class StringUtils {
         }
 
         char c = str.charAt(0);
-        return (!Character.isLetter(c) || Character.isUpperCase(c)) ? str
-            : new StringBuilder(str.length()).append(Character.toUpperCase(c)).append(str.substring(1)).toString();
+        return (!Character.isLetter(c) || Character.isUpperCase(c)) ? str : new StringBuilder(str.length())
+                .append(Character.toUpperCase(c)).append(str.substring(1)).toString();
     }
 
     /**
@@ -164,10 +184,10 @@ public class StringUtils {
      * 
      * @param href
      * @return <ul>
-     * <li>if href is null, return ""</li>
-     * <li>if not match regx, return source</li>
-     * <li>return the last string that match regx</li>
-     * </ul>
+     *         <li>if href is null, return ""</li>
+     *         <li>if not match regx, return source</li>
+     *         <li>return the last string that match regx</li>
+     *         </ul>
      */
     public static String getHrefInnerHtml(String href) {
         if (isEmpty(href)) {
@@ -202,7 +222,7 @@ public class StringUtils {
      */
     public static String htmlEscapeCharsToString(String source) {
         return StringUtils.isEmpty(source) ? source : source.replaceAll("&lt;", "<").replaceAll("&gt;", ">")
-                                                            .replaceAll("&amp;", "&").replaceAll("&quot;", "\"");
+                .replaceAll("&amp;", "&").replaceAll("&quot;", "\"");
     }
 
     /**

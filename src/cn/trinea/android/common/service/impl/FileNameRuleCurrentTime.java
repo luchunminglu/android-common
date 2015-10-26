@@ -24,7 +24,7 @@ public class FileNameRuleCurrentTime implements FileNameRule {
     /**
      * @param timeRule see {@link TimeRule}
      */
-    public FileNameRuleCurrentTime(TimeRule timeRule){
+    public FileNameRuleCurrentTime(TimeRule timeRule) {
         super();
         this.timeRule = timeRule;
     }
@@ -48,7 +48,7 @@ public class FileNameRuleCurrentTime implements FileNameRule {
                 break;
             case HOUR_OF_DAY_TO_MILLIS:
                 time = ((now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)) * 60 + now.get(Calendar.SECOND))
-                       * 1000 + now.get(Calendar.MILLISECOND);
+                        * 1000 + now.get(Calendar.MILLISECOND);
                 break;
             case HOUR_OF_DAY_TO_SECONDS:
                 time = (now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)) * 60 + now.get(Calendar.SECOND);
@@ -58,7 +58,7 @@ public class FileNameRuleCurrentTime implements FileNameRule {
                 break;
             case HOUR_TO_MILLIS:
                 time = ((now.get(Calendar.HOUR) * 60 + now.get(Calendar.MINUTE)) * 60 + now.get(Calendar.SECOND))
-                       * 1000 + now.get(Calendar.MILLISECOND);
+                        * 1000 + now.get(Calendar.MILLISECOND);
                 break;
             case MINUTE_TO_SECONDS:
                 time = now.get(Calendar.MINUTE) * 60 + now.get(Calendar.SECOND);

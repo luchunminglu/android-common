@@ -55,7 +55,7 @@ public class DownloadManagerPro {
 
     private DownloadManager    downloadManager;
 
-    public DownloadManagerPro(DownloadManager downloadManager){
+    public DownloadManagerPro(DownloadManager downloadManager) {
         this.downloadManager = downloadManager;
     }
 
@@ -74,14 +74,14 @@ public class DownloadManagerPro {
      * 
      * @param downloadId
      * @return a int array with two elements
-     * <ul>
-     * <li>result[0] represents downloaded bytes, This will initially be -1.</li>
-     * <li>result[1] represents total bytes, This will initially be -1.</li>
-     * </ul>
+     *         <ul>
+     *         <li>result[0] represents downloaded bytes, This will initially be -1.</li>
+     *         <li>result[1] represents total bytes, This will initially be -1.</li>
+     *         </ul>
      */
     public int[] getDownloadBytes(long downloadId) {
         int[] bytesAndStatus = getBytesAndStatus(downloadId);
-        return new int[] { bytesAndStatus[0], bytesAndStatus[1] };
+        return new int[] {bytesAndStatus[0], bytesAndStatus[1]};
     }
 
     /**
@@ -89,14 +89,14 @@ public class DownloadManagerPro {
      * 
      * @param downloadId
      * @return a int array with three elements
-     * <ul>
-     * <li>result[0] represents downloaded bytes, This will initially be -1.</li>
-     * <li>result[1] represents total bytes, This will initially be -1.</li>
-     * <li>result[2] represents download status, This will initially be 0.</li>
-     * </ul>
+     *         <ul>
+     *         <li>result[0] represents downloaded bytes, This will initially be -1.</li>
+     *         <li>result[1] represents total bytes, This will initially be -1.</li>
+     *         <li>result[2] represents download status, This will initially be 0.</li>
+     *         </ul>
      */
     public int[] getBytesAndStatus(long downloadId) {
-        int[] bytesAndStatus = new int[] { -1, -1, 0 };
+        int[] bytesAndStatus = new int[] {-1, -1, 0};
         DownloadManager.Query query = new DownloadManager.Query().setFilterById(downloadId);
         Cursor c = null;
         try {
@@ -208,7 +208,8 @@ public class DownloadManagerPro {
      * @return
      */
     public String getFileName(long downloadId) {
-        return getString(downloadId, (Build.VERSION.SDK_INT < 11 ? COLUMN_LOCAL_URI : COLUMN_LOCAL_FILENAME));
+        return getString(downloadId, (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ? COLUMN_LOCAL_URI
+                : COLUMN_LOCAL_FILENAME));
     }
 
     /**
@@ -226,11 +227,12 @@ public class DownloadManagerPro {
      * 
      * @param downloadId
      * @return <ul>
-     * <li>if status of downloadId is {@link DownloadManager#STATUS_PAUSED}, return {@link #getPausedReason(long)}</li>
-     * <li>if status of downloadId is {@link DownloadManager#STATUS_FAILED}, return {@link #getErrorCode(long)}</li>
-     * <li>if status of downloadId is neither {@link DownloadManager#STATUS_PAUSED} nor
-     * {@link DownloadManager#STATUS_FAILED}, return 0</li>
-     * </ul>
+     *         <li>if status of downloadId is {@link DownloadManager#STATUS_PAUSED}, return
+     *         {@link #getPausedReason(long)}</li>
+     *         <li>if status of downloadId is {@link DownloadManager#STATUS_FAILED}, return {@link #getErrorCode(long)}</li>
+     *         <li>if status of downloadId is neither {@link DownloadManager#STATUS_PAUSED} nor
+     *         {@link DownloadManager#STATUS_FAILED}, return 0</li>
+     *         </ul>
      */
     public int getReason(long downloadId) {
         return getInt(downloadId, DownloadManager.COLUMN_REASON);
@@ -241,13 +243,13 @@ public class DownloadManagerPro {
      * 
      * @param downloadId
      * @return <ul>
-     * <li>if status of downloadId is {@link DownloadManager#STATUS_PAUSED}, return one of
-     * {@link DownloadManager#PAUSED_WAITING_TO_RETRY}<br/>
-     * {@link DownloadManager#PAUSED_WAITING_FOR_NETWORK}<br/>
-     * {@link DownloadManager#PAUSED_QUEUED_FOR_WIFI}<br/>
-     * {@link DownloadManager#PAUSED_UNKNOWN}</li>
-     * <li>else return {@link DownloadManager#PAUSED_UNKNOWN}</li>
-     * </ul>
+     *         <li>if status of downloadId is {@link DownloadManager#STATUS_PAUSED}, return one of
+     *         {@link DownloadManager#PAUSED_WAITING_TO_RETRY}<br/>
+     *         {@link DownloadManager#PAUSED_WAITING_FOR_NETWORK}<br/>
+     *         {@link DownloadManager#PAUSED_QUEUED_FOR_WIFI}<br/>
+     *         {@link DownloadManager#PAUSED_UNKNOWN}</li>
+     *         <li>else return {@link DownloadManager#PAUSED_UNKNOWN}</li>
+     *         </ul>
      */
     public int getPausedReason(long downloadId) {
         return getInt(downloadId, DownloadManager.COLUMN_REASON);
@@ -277,7 +279,7 @@ public class DownloadManagerPro {
         /**
          * @param uri the HTTP URI to download.
          */
-        public RequestPro(Uri uri){
+        public RequestPro(Uri uri) {
             super(uri);
         }
 

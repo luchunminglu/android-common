@@ -59,7 +59,7 @@ public class HttpResponse {
      */
     private int                 responseCode = -1;
 
-    public HttpResponse(String url){
+    public HttpResponse(String url) {
         this.url = url;
         type = 0;
         isInCache = false;
@@ -67,7 +67,7 @@ public class HttpResponse {
         responseHeaders = new HashMap<String, Object>();
     }
 
-    public HttpResponse(){
+    public HttpResponse() {
         responseHeaders = new HashMap<String, Object>();
     }
 
@@ -91,14 +91,14 @@ public class HttpResponse {
      * get reponse code
      * 
      * @return An <code>int</code> representing the three digit HTTP Status-Code.
-     * <ul>
-     * <li>1xx: Informational
-     * <li>2xx: Success
-     * <li>3xx: Redirection
-     * <li>4xx: Client Error
-     * <li>5xx: Server Error
-     * <li>-1: http error
-     * </ul>
+     *         <ul>
+     *         <li>1xx: Informational
+     *         <li>2xx: Success
+     *         <li>3xx: Redirection
+     *         <li>4xx: Client Error
+     *         <li>5xx: Server Error
+     *         <li>-1: http error
+     *         </ul>
      */
     public int getResponseCode() {
         return responseCode;
@@ -167,10 +167,10 @@ public class HttpResponse {
      * </ul>
      * 
      * @return <ul>
-     * <li>if max-age in cache-control is exists, return current time plus it</li>
-     * <li>else return expires</li>
-     * <li>if something error, return -1</li>
-     * </ul>
+     *         <li>if max-age in cache-control is exists, return current time plus it</li>
+     *         <li>else return expires</li>
+     *         <li>if something error, return -1</li>
+     *         </ul>
      */
     public long getExpiredTime() {
         if (isInitExpiredTime) {
@@ -229,7 +229,7 @@ public class HttpResponse {
      * 
      * @return -1 represents http error or no cache-control in response headers, or max-age in seconds
      */
-    private int getCacheControlMaxAge() {
+    private long getCacheControlMaxAge() {
         try {
             String cacheControl = (String)responseHeaders.get(HttpConstants.CACHE_CONTROL);
             if (!StringUtils.isEmpty(cacheControl)) {
@@ -242,7 +242,7 @@ public class HttpResponse {
                     } else {
                         maxAge = cacheControl.substring(start + "max-age=".length());
                     }
-                    return Integer.parseInt(maxAge);
+                    return Long.parseLong(maxAge);
                 }
             }
             return -1;
@@ -256,13 +256,13 @@ public class HttpResponse {
      * get expires
      * 
      * @return <ul>
-     * <li>if max-age in cache-control is exists, return current time plus it</li>
-     * <li>else return expires</li>
-     * <li>if something error, return -1</li>
-     * </ul>
+     *         <li>if max-age in cache-control is exists, return current time plus it</li>
+     *         <li>else return expires</li>
+     *         <li>if something error, return -1</li>
+     *         </ul>
      */
     private long getExpiresInMillis() {
-        int maxAge = getCacheControlMaxAge();
+        long maxAge = getCacheControlMaxAge();
         if (maxAge != -1) {
             return System.currentTimeMillis() + maxAge * 1000;
         } else {

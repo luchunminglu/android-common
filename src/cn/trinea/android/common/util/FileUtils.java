@@ -13,13 +13,18 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.text.TextUtils;
+
 /**
  * File Utils
  * <ul>
  * Read or write file
  * <li>{@link #readFile(String)} read file</li>
  * <li>{@link #readFileToList(String)} read file to string list</li>
- * <li>{@link #writeFile(String, String, boolean)} write file</li>
+ * <li>{@link #writeFile(String, String, boolean)} write file from String</li>
+ * <li>{@link #writeFile(String, String)} write file from String</li>
+ * <li>{@link #writeFile(String, List, boolean)} write file from String List</li>
+ * <li>{@link #writeFile(String, List)} write file from String List</li>
  * <li>{@link #writeFile(String, InputStream)} write file</li>
  * <li>{@link #writeFile(String, InputStream, boolean)} write file</li>
  * <li>{@link #writeFile(File, InputStream)} write file</li>
@@ -27,6 +32,7 @@ import java.util.List;
  * </ul>
  * <ul>
  * Operate file
+ * <li>{@link #moveFile(File, File)} or {@link #moveFile(String, String)}</li>
  * <li>{@link #copyFile(String, String)}</li>
  * <li>{@link #getFileExtension(String)}</li>
  * <li>{@link #getFileName(String)}</li>
@@ -44,6 +50,10 @@ import java.util.List;
 public class FileUtils {
 
     public final static String FILE_EXTENSION_SEPARATOR = ".";
+
+    private FileUtils() {
+        throw new AssertionError();
+    }
 
     /**
      * read file
@@ -92,10 +102,14 @@ public class FileUtils {
      * @param filePath
      * @param content
      * @param append is append, if true, write to the end of file, else clear content of file and write into it
-     * @return return true
+     * @return return false if content is empty, true otherwise
      * @throws RuntimeException if an error occurs while operator FileWriter
      */
     public static boolean writeFile(String filePath, String content, boolean append) {
+        if (StringUtils.isEmpty(content)) {
+            return false;
+        }
+
         FileWriter fileWriter = null;
         try {
             makeDirs(filePath);
@@ -120,6 +134,68 @@ public class FileUtils {
      * write file
      * 
      * @param filePath
+     * @param contentList
+     * @param append is append, if true, write to the end of file, else clear content of file and write into it
+     * @return return false if contentList is empty, true otherwise
+     * @throws RuntimeException if an error occurs while operator FileWriter
+     */
+    public static boolean writeFile(String filePath, List<String> contentList, boolean append) {
+        if (ListUtils.isEmpty(contentList)) {
+            return false;
+        }
+
+        FileWriter fileWriter = null;
+        try {
+            makeDirs(filePath);
+            fileWriter = new FileWriter(filePath, append);
+            int i = 0;
+            for (String line : contentList) {
+                if (i++ > 0) {
+                    fileWriter.write("\r\n");
+                }
+                fileWriter.write(line);
+            }
+            fileWriter.close();
+            return true;
+        } catch (IOException e) {
+            throw new RuntimeException("IOException occurred. ", e);
+        } finally {
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    throw new RuntimeException("IOException occurred. ", e);
+                }
+            }
+        }
+    }
+
+    /**
+     * write file, the string will be written to the begin of the file
+     * 
+     * @param filePath
+     * @param content
+     * @return
+     */
+    public static boolean writeFile(String filePath, String content) {
+        return writeFile(filePath, content, false);
+    }
+
+    /**
+     * write file, the string list will be written to the begin of the file
+     * 
+     * @param filePath
+     * @param contentList
+     * @return
+     */
+    public static boolean writeFile(String filePath, List<String> contentList) {
+        return writeFile(filePath, contentList, false);
+    }
+
+    /**
+     * write file, the bytes will be written to the begin of the file
+     * 
+     * @param filePath
      * @param stream
      * @return
      * @see {@link #writeFile(String, InputStream, boolean)}
@@ -142,7 +218,7 @@ public class FileUtils {
     }
 
     /**
-     * write file
+     * write file, the bytes will be written to the begin of the file
      * 
      * @param file
      * @param stream
@@ -187,6 +263,33 @@ public class FileUtils {
                     throw new RuntimeException("IOException occurred. ", e);
                 }
             }
+        }
+    }
+
+    /**
+     * move file
+     * 
+     * @param sourceFilePath
+     * @param destFilePath
+     */
+    public static void moveFile(String sourceFilePath, String destFilePath) {
+        if (TextUtils.isEmpty(sourceFilePath) || TextUtils.isEmpty(destFilePath)) {
+            throw new RuntimeException("Both sourceFilePath and destFilePath cannot be null.");
+        }
+        moveFile(new File(sourceFilePath), new File(destFilePath));
+    }
+
+    /**
+     * move file
+     * 
+     * @param srcFile
+     * @param destFile
+     */
+    public static void moveFile(File srcFile, File destFile) {
+        boolean rename = srcFile.renameTo(destFile);
+        if (!rename) {
+            copyFile(srcFile.getAbsolutePath(), destFile.getAbsolutePath());
+            deleteFile(srcFile.getAbsolutePath());
         }
     }
 
@@ -393,12 +496,12 @@ public class FileUtils {
      * 
      * @param filePath
      * @return true if the necessary directories have been created or the target directory already exists, false one of
-     * the directories can not be created.
-     * <ul>
-     * <li>if {@link FileUtils#getFolderName(String)} return null, return false</li>
-     * <li>if target directory already exists, return true</li>
-     * <li>return {@link java.io.File#makeFolder}</li>
-     * </ul>
+     *         the directories can not be created.
+     *         <ul>
+     *         <li>if {@link FileUtils#getFolderName(String)} return null, return false</li>
+     *         <li>if target directory already exists, return true</li>
+     *         <li>return {@link java.io.File#makeFolder}</li>
+     *         </ul>
      */
     public static boolean makeDirs(String filePath) {
         String folderName = getFolderName(filePath);

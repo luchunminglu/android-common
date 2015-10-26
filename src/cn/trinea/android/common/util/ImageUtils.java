@@ -41,6 +41,10 @@ import android.graphics.drawable.Drawable;
  */
 public class ImageUtils {
 
+    private ImageUtils() {
+        throw new AssertionError();
+    }
+
     /**
      * convert Bitmap to byte array
      * 
@@ -130,7 +134,7 @@ public class ImageUtils {
      * @throws IOException
      */
     public static InputStream getInputStreamFromUrl(String imageUrl, int readTimeOutMillis,
-                                                    Map<String, String> requestProperties) {
+            Map<String, String> requestProperties) {
         InputStream stream = null;
         try {
             URL url = new URL(imageUrl);
@@ -171,7 +175,7 @@ public class ImageUtils {
      * @return
      */
     public static Drawable getDrawableFromUrl(String imageUrl, int readTimeOutMillis,
-                                              Map<String, String> requestProperties) {
+            Map<String, String> requestProperties) {
         InputStream stream = getInputStreamFromUrl(imageUrl, readTimeOutMillis, requestProperties);
         Drawable d = Drawable.createFromStream(stream, "src");
         closeInputStream(stream);
